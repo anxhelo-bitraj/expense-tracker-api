@@ -14,9 +14,11 @@ import java.util.regex.Pattern;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
+
     @Override
     public User validateUser(String email, String password) throws EtAuthException{
-        return null;
+        if(email != null) email = email.toLowerCase();
+        return userRepository.findByEmailAndPassword(email, password);
     }
     @Override
     public User registerUser(String firstName, String lastName, String email, String password) throws EtAuthException{
